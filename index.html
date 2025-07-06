@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Móka</title>
+    <title>Watch - Discord Server Protection</title>
     <style>
         * {
             margin: 0;
@@ -13,429 +14,163 @@
 
 ```
     body {
-        font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        background: 
-            radial-gradient(circle at 25% 25%, rgba(66, 133, 244, 0.15) 0%, transparent 50%),
-            radial-gradient(circle at 75% 75%, rgba(52, 168, 83, 0.12) 0%, transparent 50%),
-            radial-gradient(circle at 50% 50%, rgba(66, 133, 244, 0.08) 0%, transparent 70%),
-            linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #1a1a2e 100%);
-        color: #ffffff;
-        min-height: 100vh;
+        font-family: 'Arial', sans-serif;
+        background: #000;
+        color: #fff;
         overflow-x: hidden;
         position: relative;
     }
-    
-    /* Enhanced Background Pattern */
-    body::before {
-        content: '';
+
+    /* Animated Stars Background */
+    .stars {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: 
-            radial-gradient(circle at 20% 30%, rgba(66, 133, 244, 0.08) 0%, transparent 40%),
-            radial-gradient(circle at 80% 20%, rgba(52, 168, 83, 0.06) 0%, transparent 40%),
-            radial-gradient(circle at 40% 70%, rgba(66, 133, 244, 0.05) 0%, transparent 30%),
-            radial-gradient(circle at 60% 40%, rgba(52, 168, 83, 0.04) 0%, transparent 35%),
-            linear-gradient(45deg, rgba(66, 133, 244, 0.02) 0%, transparent 50%),
-            linear-gradient(-45deg, rgba(52, 168, 83, 0.02) 0%, transparent 50%);
         pointer-events: none;
         z-index: 1;
     }
-    
-    body::after {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: 
-            repeating-linear-gradient(
-                90deg,
-                transparent,
-                transparent 98px,
-                rgba(66, 133, 244, 0.01) 100px
-            ),
-            repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 98px,
-                rgba(52, 168, 83, 0.01) 100px
-            );
-        pointer-events: none;
-        z-index: 1;
+
+    .star {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: #fff;
+        border-radius: 50%;
+        animation: twinkle 2s infinite alternate;
     }
-    
+
+    @keyframes twinkle {
+        0% { opacity: 0.3; transform: scale(0.8); }
+        100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Main Content */
     .container {
+        position: relative;
+        z-index: 2;
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 20px;
-        position: relative;
-        z-index: 2;
     }
-    
-    /* Header */
+
     .header {
-        padding: 20px 0;
-        position: relative;
-        z-index: 1000;
-    }
-    
-    .nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .logo {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    .logo-icon {
-        width: 40px;
-        height: 40px;
-        background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
-    }
-    
-    .logo-text {
-        font-size: 24px;
-        font-weight: 600;
-        color: #ffffff;
-    }
-    
-    .menu-toggle {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        cursor: pointer;
-    }
-    
-    .menu-line {
-        width: 25px;
-        height: 3px;
-        background: #ffffff;
-        border-radius: 2px;
-        transition: all 0.3s ease;
-    }
-    
-    /* Hero Section */
-    .hero {
         text-align: center;
-        padding: 80px 0;
+        padding: 80px 0 40px;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 1s ease-out 0.2s forwards;
     }
-    
-    .hero-title {
-        font-size: 48px;
-        font-weight: 700;
-        margin-bottom: 20px;
-        background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+
+    .title {
+        font-size: 4.5rem;
+        font-weight: bold;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        margin-bottom: 30px;
+        text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
     }
-    
-    .hero-subtitle {
-        font-size: 20px;
-        color: #b0b0b0;
-        margin-bottom: 40px;
-        line-height: 1.6;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
+
+    .invite-btn {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 40px;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 1s ease-out 0.5s forwards;
     }
-    
-    /* Services Section */
-    .services {
-        padding: 60px 0;
+
+    .invite-btn:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        border-color: #87ceeb;
+    }
+
+    .cards-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 25px;
-        margin-top: 40px;
+        gap: 30px;
+        margin-top: 80px;
+        padding-bottom: 80px;
     }
-    
-    .service-card {
-        background: rgba(255, 255, 255, 0.04);
-        backdrop-filter: blur(25px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+
+    .card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.1);
         border-radius: 20px;
-        padding: 35px 25px;
+        padding: 30px;
         text-align: center;
-        transition: all 0.4s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .service-card:hover {
-        transform: translateY(-12px);
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(66, 133, 244, 0.4);
-        box-shadow: 0 25px 50px rgba(66, 133, 244, 0.2);
-    }
-    
-    .service-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, #4285f4, transparent);
+        transition: all 0.3s ease;
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transform: translateY(50px);
+        cursor: pointer;
     }
-    
-    .service-card:hover::before {
-        opacity: 1;
+
+    .card:nth-child(1) { animation: fadeInUp 1s ease-out 0.8s forwards; }
+    .card:nth-child(2) { animation: fadeInUp 1s ease-out 1s forwards; }
+    .card:nth-child(3) { animation: fadeInUp 1s ease-out 1.2s forwards; }
+    .card:nth-child(4) { animation: fadeInUp 1s ease-out 1.4s forwards; }
+    .card:nth-child(5) { animation: fadeInUp 1s ease-out 1.6s forwards; }
+
+    .card:hover {
+        transform: translateY(-10px) scale(1.05);
+        border-color: #87ceeb;
+        box-shadow: 0 15px 35px rgba(135, 206, 235, 0.3);
     }
-    
-    .service-icon {
+
+    .card-icon {
         width: 60px;
         height: 60px;
         margin: 0 auto 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 28px;
-        background: linear-gradient(135deg, rgba(66, 133, 244, 0.1) 0%, rgba(52, 168, 83, 0.1) 100%);
-        border-radius: 15px;
-        border: 1px solid rgba(66, 133, 244, 0.2);
+        fill: #667eea;
     }
-    
-    .service-title {
-        font-size: 24px;
-        font-weight: 600;
-        margin-bottom: 15px;
-        color: #ffffff;
-    }
-    
-    .service-description {
-        font-size: 16px;
-        color: #b0b0b0;
-        line-height: 1.7;
-        margin-bottom: 25px;
-    }
-    
-    .service-features {
-        list-style: none;
-        text-align: left;
-        margin-top: 20px;
-    }
-    
-    .service-features li {
-        color: #c0c0c0;
-        margin-bottom: 10px;
-        font-size: 14px;
-        padding-left: 20px;
-        position: relative;
-    }
-    
-    .service-features li::before {
-        content: "✓";
-        color: #34a853;
+
+    .card-title {
+        font-size: 1.5rem;
         font-weight: bold;
-        position: absolute;
-        left: 0;
+        margin-bottom: 15px;
+        color: #fff;
     }
-    
-    /* CTA Section */
-    .cta-section {
-        text-align: center;
-        padding: 80px 0;
+
+    .card-description {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #ccc;
     }
-    
-    .cta-title {
-        font-size: 32px;
-        font-weight: 700;
-        margin-bottom: 30px;
-        color: #ffffff;
-    }
-    
-    /* Contact Section */
-    .contact-section {
-        padding: 40px 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-    
-    .contact-box {
-        background: rgba(255, 255, 255, 0.04);
-        backdrop-filter: blur(25px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 15px;
-        padding: 20px 25px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        transition: all 0.3s ease;
-        position: relative;
-        min-width: 350px;
-    }
-    
-    .contact-box:hover {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(66, 133, 244, 0.3);
-        transform: translateY(-2px);
-    }
-    
-    .contact-icon {
-        width: 40px;
-        height: 40px;
-        background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-        color: white;
-        flex-shrink: 0;
-    }
-    
-    .contact-text {
-        color: #ffffff;
-        font-size: 16px;
-        font-weight: 500;
-        flex-grow: 1;
-        text-align: left;
-    }
-    
-    .copy-btn {
-        background: rgba(66, 133, 244, 0.2);
-        border: 1px solid rgba(66, 133, 244, 0.3);
-        border-radius: 8px;
-        padding: 8px 12px;
-        color: #4285f4;
-        font-size: 14px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        flex-shrink: 0;
-    }
-    
-    .copy-btn:hover {
-        background: rgba(66, 133, 244, 0.3);
-        border-color: rgba(66, 133, 244, 0.5);
-        color: #ffffff;
-    }
-    
-    .copy-btn:active {
-        transform: scale(0.95);
-    }
-    
-    .copy-success {
-        background: rgba(52, 168, 83, 0.3) !important;
-        border-color: rgba(52, 168, 83, 0.5) !important;
-        color: #34a853 !important;
-    }
-    
-    /* Stats Section */
-    .stats {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 30px;
-        margin: 60px 0;
-    }
-    
-    .stat-item {
-        text-align: center;
-        padding: 20px;
-        background: rgba(255, 255, 255, 0.03);
-        border-radius: 15px;
-        border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-    
-    .stat-number {
-        font-size: 32px;
-        font-weight: 700;
-        color: #4285f4;
-        margin-bottom: 10px;
-    }
-    
-    .stat-label {
-        font-size: 14px;
-        color: #b0b0b0;
-    }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-        .hero-title {
-            font-size: 36px;
-        }
-        
-        .hero-subtitle {
-            font-size: 18px;
-        }
-        
-        .services {
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-        
-        .service-card {
-            padding: 25px 20px;
-        }
-        
-        .cta-title {
-            font-size: 24px;
-        }
-        
-        .contact-box {
-            min-width: 280px;
-        }
-    }
-    
-    /* Animation */
+
     @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
         to {
             opacity: 1;
             transform: translateY(0);
         }
     }
-    
-    .service-card {
-        animation: fadeInUp 0.6s ease forwards;
-    }
-    
-    .service-card:nth-child(1) { animation-delay: 0.1s; }
-    .service-card:nth-child(2) { animation-delay: 0.2s; }
-    .service-card:nth-child(3) { animation-delay: 0.3s; }
-    .service-card:nth-child(4) { animation-delay: 0.4s; }
-    .service-card:nth-child(5) { animation-delay: 0.5s; }
-    
-    /* Floating particles */
-    .particle {
-        position: fixed;
-        width: 8px;
-        height: 8px;
-        background: linear-gradient(45deg, #4285f4, #34a853);
-        border-radius: 50%;
-        animation: float 10s ease-in-out infinite;
-        z-index: 1;
-    }
-    
-    @keyframes float {
-        0%, 100% { 
-            transform: translateY(0px) rotate(0deg);
-            opacity: 0.5;
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .title {
+            font-size: 3rem;
         }
-        50% { 
-            transform: translateY(-40px) rotate(180deg);
-            opacity: 1;
+        
+        .cards-container {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .card {
+            padding: 20px;
         }
     }
 </style>
@@ -443,205 +178,109 @@
 
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <nav class="nav">
-                <div class="logo">
-                    <div class="logo-icon">✨</div>
-                    <div class="logo-text">Móka</div>
-                </div>
-                <div class="menu-toggle">
-                    <div class="menu-line"></div>
-                    <div class="menu-line"></div>
-                    <div class="menu-line"></div>
-                </div>
-            </nav>
-        </header>
+    <div class="stars"></div>
 
 ```
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1 class="hero-title">Professional digital solutions for your business</h1>
-        <p class="hero-subtitle">We create amazing websites, Discord bots, and AI solutions for your business. Trusted by thousands of users worldwide.</p>
-    </section>
+<div class="container">
+    <div class="header">
+        <h1 class="title">Watch</h1>
+        <a href="https://discord.com/oauth2/authorize?client_id=1391395335636648056&permissions=8&integration_type=0&scope=bot+applications.commands" class="invite-btn" target="_blank">
+            Invite Bot Discord
+        </a>
+    </div>
 
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="stat-item">
-            <div class="stat-number">2050+</div>
-            <div class="stat-label">Active Servers</div>
+    <div class="cards-container">
+        <div class="card">
+            <svg class="card-icon" viewBox="0 0 24 24">
+                <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 7.5V9C15 10.1 15.9 11 17 11S19 10.1 19 11H21V9ZM3 13V11L9 11.5V13C9 14.1 8.1 15 7 15S5 14.1 5 15H3V13ZM12 7.5C8.7 7.5 6 10.2 6 13.5V16H18V13.5C18 10.2 15.3 7.5 12 7.5ZM12 22C13.1 22 14 21.1 14 20C14 18.9 13.1 18 12 18C10.9 18 10 18.9 10 20C10 21.1 10.9 22 12 22Z"/>
+            </svg>
+            <h3 class="card-title">Ultimate Server Protection</h3>
+            <p class="card-description">
+                Our advanced security system provides comprehensive protection for your Discord server. We monitor threats 24/7 and automatically block malicious users, spam attacks, and unauthorized access attempts. With our AI-powered detection system, your server stays safe from raids, bots, and toxic behavior. Trust the #1 protection bot worldwide to keep your community secure and thriving.
+            </p>
         </div>
-        <div class="stat-item">
-            <div class="stat-number">150K+</div>
-            <div class="stat-label">Happy Users</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">24/7</div>
-            <div class="stat-label">Support</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">99.9%</div>
-            <div class="stat-label">Uptime</div>
-        </div>
-    </section>
 
-    <!-- Services Section -->
-    <section class="services">
-        <div class="service-card">
-            <div class="service-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10" stroke="#4285f4"/>
-                    <line x1="2" y1="12" x2="22" y2="12" stroke="#4285f4"/>
-                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="#4285f4"/>
-                </svg>
-            </div>
-            <h3 class="service-title">Rava Discord Bot</h3>
-            <p class="service-description">The most popular and powerful Discord bot with over 2050+ servers and growing daily. Our flagship product that's completely free forever with premium features that outperform paid alternatives.</p>
-            <ul class="service-features">
-                <li>Advanced moderation tools with auto-ban system</li>
-                <li>High-quality music streaming with queue management</li>
-                <li>Custom commands & automated responses</li>
-                <li>Welcome messages & role management</li>
-                <li>Server analytics & detailed logging</li>
-                <li>Mini-games & entertainment features</li>
-                <li>99.9% uptime guarantee with 24/7 support</li>
-                <li>Regular feature updates based on user feedback</li>
-                <li>Completely free forever - no hidden costs</li>
-            </ul>
+        <div class="card">
+            <svg class="card-icon" viewBox="0 0 24 24">
+                <path d="M9 12L11 14L15 10M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM12 20C10.9 20 10 19.1 10 18C10 16.9 10.9 16 12 16C13.1 16 14 16.9 14 18C14 19.1 13.1 20 12 20ZM6 8C4.9 8 4 7.1 4 6C4 4.9 4.9 4 6 4C7.1 4 8 4.9 8 6C8 7.1 7.1 8 6 8ZM18 8C16.9 8 16 7.1 16 6C16 4.9 16.9 4 18 4C19.1 4 20 4.9 20 6C20 7.1 19.1 8 18 8Z"/>
+            </svg>
+            <h3 class="card-title">Discord Verified & Trusted</h3>
+            <p class="card-description">
+                We are officially verified by Discord and trusted by millions of users worldwide. Our bot meets Discord's highest security standards and compliance requirements. With extensive testing and continuous updates, we ensure maximum reliability and performance. Join thousands of satisfied server owners who trust our verified protection system to safeguard their communities every day.
+            </p>
         </div>
-        
-        <div class="service-card">
-            <div class="service-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="#4285f4"/>
-                    <polyline points="14,2 14,8 20,8" stroke="#4285f4"/>
-                    <line x1="16" y1="13" x2="8" y2="13" stroke="#4285f4"/>
-                    <line x1="16" y1="17" x2="8" y2="17" stroke="#4285f4"/>
-                    <polyline points="10,9 9,9 8,9" stroke="#4285f4"/>
-                </svg>
-            </div>
-            <h3 class="service-title">Website Development</h3>
-            <p class="service-description">Professional websites built with cutting-edge technologies and modern design principles. We create responsive, fast, and SEO-optimized websites that drive results for your business.</p>
-            <ul class="service-features">
-                <li>Custom responsive design for all devices</li>
-                <li>Advanced SEO optimization for better ranking</li>
-                <li>Lightning-fast loading speeds (under 2 seconds)</li>
-                <li>Modern UI/UX with intuitive user experience</li>
-                <li>E-commerce integration with payment gateways</li>
-                <li>Content management system (CMS)</li>
-                <li>Analytics integration & performance tracking</li>
-                <li>SSL certificates & security hardening</li>
-                <li>Ongoing maintenance & technical support</li>
-            </ul>
-        </div>
-        
-        <div class="service-card">
-            <div class="service-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke="#4285f4"/>
-                    <line x1="8" y1="21" x2="16" y2="21" stroke="#4285f4"/>
-                    <line x1="12" y1="17" x2="12" y2="21" stroke="#4285f4"/>
-                    <path d="M7 11h10v4H7z" stroke="#4285f4"/>
-                </svg>
-            </div>
-            <h3 class="service-title">Developer Tools</h3>
-            <p class="service-description">Comprehensive suite of development tools and utilities designed to streamline your workflow and boost productivity. From code generators to debugging tools, we've got you covered.</p>
-            <ul class="service-features">
-                <li>Custom code generators & templates</li>
-                <li>API development & integration tools</li>
-                <li>Database management utilities</li>
-                <li>Performance monitoring & optimization</li>
-                <li>Automated testing frameworks</li>
-                <li>CI/CD pipeline setup & configuration</li>
-                <li>Version control & collaboration tools</li>
-                <li>Documentation generators</li>
-                <li>Development environment setup</li>
-            </ul>
-        </div>
-        
-        <div class="service-card">
-            <div class="service-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke="#4285f4"/>
-                </svg>
-            </div>
-            <h3 class="service-title">Custom Bots</h3>
-            <p class="service-description">Specialized Discord bots tailored to your specific needs and requirements. From simple utility bots to complex automation systems, we build powerful solutions that integrate seamlessly with your community.</p>
-            <ul class="service-features">
-                <li>Custom bot development from scratch</li>
-                <li>Advanced automation & workflow systems</li>
-                <li>Multi-platform integration (Discord, Slack, etc.)</li>
-                <li>Custom dashboard & control panels</li>
-                <li>Database integration & data management</li>
-                <li>Advanced permission & role systems</li>
-                <li>Custom commands & slash commands</li>
-                <li>Real-time notifications & alerts</li>
-                <li>24/7 hosting & maintenance included</li>
-            </ul>
-        </div>
-        
-        <div class="service-card">
-            <div class="service-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="#4285f4"/>
-                    <polyline points="3.27,6.96 12,12.01 20.73,6.96" stroke="#4285f4"/>
-                    <line x1="12" y1="22.08" x2="12" y2="12" stroke="#4285f4"/>
-                </svg>
-            </div>
-            <h3 class="service-title">AI Solutions</h3>
-            <p class="service-description">Cutting-edge artificial intelligence solutions that transform your business operations. From chatbots to predictive analytics, we harness the power of AI to give you a competitive edge.</p>
-            <ul class="service-features">
-                <li>Custom AI chatbots with natural language processing</li>
-                <li>Machine learning models for data analysis</li>
-                <li>Automated workflow optimization</li>
-                <li>Predictive analytics & forecasting</li>
-                <li>Computer vision & image recognition</li>
-                <li>Voice recognition & speech processing</li>
-                <li>Recommendation systems</li>
-                <li>Data mining & pattern recognition</li>
-                <li>Scalable cloud-based AI infrastructure</li>
-            </ul>
-        </div>
-    </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <h2 class="cta-title">Ready to transform your digital presence?</h2>
-        
-        <!-- Contact Section -->
-        <div class="contact-section">
-            <div class="contact-box">
-                <div class="contact-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                        <polyline points="22,6 12,13 2,6"/>
-                    </svg>
-                </div>
-                <span class="contact-text">sfa78y7@gmail.com</span>
-                <button class="copy-btn" onclick="copyEmail()">Copy</button>
-            </div>
-            
-            <div class="contact-box">
-                <div class="contact-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.504 19.504 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-4.413-.814-8.255-3.432-11.65a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.183 0 2.157 1.086 2.157 2.419.018 1.334-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.182 0 2.157 1.086 2.157 2.419 0 1.334-.956 2.419-2.157 2.419z"/>
-                    </svg>
-                </div>
-                <span class="contact-text">.884.</span>
-                <button class="copy-btn" onclick="copyDiscord()">Copy</button>
-            </div>
+        <div class="card">
+            <svg class="card-icon" viewBox="0 0 24 24">
+                <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z"/>
+            </svg>
+            <h3 class="card-title">World's #1 Protection Bot</h3>
+            <p class="card-description">
+                Recognized globally as the leading Discord security solution, our bot has successfully protected over 100,000 servers from various threats. We continuously innovate with cutting-edge security features, real-time monitoring, and instant response capabilities. Our reputation is built on excellence, reliability, and unmatched protection that keeps your server ahead of emerging threats and security challenges.
+            </p>
         </div>
-    </section>
+
+        <div class="card">
+            <svg class="card-icon" viewBox="0 0 24 24">
+                <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM12 7C13.1 7 14 7.9 14 9S13.1 11 12 11 10 10.1 10 9 10.9 7 12 7ZM12 17C9.79 17 8 15.21 8 13S9.79 9 12 9 16 10.79 16 13 14.21 17 12 17Z"/>
+            </svg>
+            <h3 class="card-title">Advanced Anti-Raid System</h3>
+            <p class="card-description">
+                Our sophisticated anti-raid technology detects and prevents coordinated attacks before they can damage your server. With machine learning algorithms and behavioral analysis, we identify suspicious patterns and automatically implement protective measures. Features include automatic member screening, rapid response protocols, and customizable security levels that adapt to your server's specific needs and activity patterns.
+            </p>
+        </div>
+
+        <div class="card">
+            <svg class="card-icon" viewBox="0 0 24 24">
+                <path d="M12 2C17.5 2 22 6.5 22 12S17.5 22 12 22 2 17.5 2 12 6.5 2 12 2M12 4C7.58 4 4 7.58 4 12S7.58 20 12 20 20 16.42 20 12 16.42 4 12 4M12 6C15.31 6 18 8.69 18 12S15.31 18 12 18 6 15.31 6 12 8.69 6 12 6M12 8C9.79 8 8 9.79 8 12S9.79 16 12 16 16 14.21 16 12 14.21 8 12 8Z"/>
+            </svg>
+            <h3 class="card-title">24/7 Monitoring & Support</h3>
+            <p class="card-description">
+                Our dedicated monitoring system works around the clock to ensure your server's safety. With real-time alerts, instant threat detection, and automatic response mechanisms, we provide continuous protection without interruption. Our expert support team is always available to assist with configuration, troubleshooting, and security optimization. Experience peace of mind knowing your server is protected every second of every day.
+            </p>
+        </div>
+    </div>
 </div>
 
-<!-- Enhanced Floating Particles -->
-<div class="particle" style="top: 5%; left: 3%; animation-delay: 0s;"></div>
-<div class="particle" style="top: 15%; left: 88%; animation-delay: 2s;"></div>
-<div class="particle" style="top: 25%; left: 12%; animation-delay: 4s;"></div>
-<div class="particle" style="top: 35%; left: 75%; animation-delay: 1s;"></div>
-<div class="particle" style="top: 45%; left: 25%; animation-delay: 3s;"></div>
-<div class="particle" style="top: 55%; left: 82%; animation-delay: 5s;"></div>
-<div class="particle" style="top: 65%; left: 8%; animation-delay: 1.5s;"></div>
-<div class="particle" style="top: 75%; left: 68%; animation-delay: 3.5s;
+<script>
+    // Create animated stars
+    function createStars() {
+        const starsContainer = document.querySelector('.stars');
+        const numberOfStars = 150;
+
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 2 + 's';
+            star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            starsContainer.appendChild(star);
+        }
+    }
+
+    // Initialize stars when page loads
+    window.addEventListener('load', createStars);
+
+    // Add click animation to cards
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', function() {
+            this.style.transform = 'translateY(-10px) scale(1.08)';
+            setTimeout(() => {
+                this.style.transform = 'translateY(-10px) scale(1.05)';
+            }, 150);
+        });
+    });
+
+    // Add click animation to invite button
+    document.querySelector('.invite-btn').addEventListener('click', function() {
+        this.style.transform = 'translateY(-3px) scale(1.08)';
+        setTimeout(() => {
+            this.style.transform = 'translateY(-3px) scale(1.05)';
+        }, 150);
+    });
+</script>
 ```
+
+</body>
+</html>
